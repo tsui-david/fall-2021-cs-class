@@ -1,3 +1,6 @@
+# CLASS 1
+# Slides: https://docs.google.com/presentation/d/16Mhet-kwQmbEkF8HSm_2d9QVycIliePFU8962gB01-w/edit?usp=sharing
+
 """
 Exercise 0. This is an example
 """
