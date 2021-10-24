@@ -64,13 +64,18 @@ QUIT = 'quit'
 player_move = ""
 computer_move = ""
 
-while True:
+has_game_ended = False
+has_correct_move = False
+
+player_score = 0
+computer_score = 0
+
+while not has_game_ended:
     print("------------ NEW GAME ---------------")
-    has_incorrect_move = True
-    while has_incorrect_move:
+    while not has_correct_move:
         player_move = input("Play your move: (rock, paper, scissors, quit)  ")
         if player_move == ROCK or player_move == PAPER or player_move == SCISSORS or player_move == QUIT:
-            has_incorrect_move = False
+            has_correct_move = True
         else:
             print("You did not have correct move. Try again.")
 
@@ -91,15 +96,28 @@ while True:
         print(TIE)
     elif computer_move == ROCK and player_move == PAPER:
         print(WIN)
+        player_score += 1
     elif computer_move == PAPER and player_move == ROCK:
         print(LOSE)
+        computer_score += 1
     elif computer_move == PAPER and player_move == SCISSORS:
         print(WIN)
+        player_score += 1
     elif computer_move == SCISSORS and player_move == PAPER:
         print(LOSE)
+        computer_score += 1
     elif computer_move == ROCK and player_move == SCISSORS:
         print(WIN)
+        player_score += 1
     else:
         print(LOSE)
+        computer_score += 1
+    
+    if computer_score == 11 or player_score == 11:
+        has_game_ended = True
 
 print("The game has ended.")
+if computer_score > player_score:
+    print("Computer has won")
+else:
+    print("Player has won")
