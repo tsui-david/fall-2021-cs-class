@@ -1,3 +1,3 @@
-run="python class6/main.py"
+run="python class6/example.py"
 language="python3"
 onBoot="echo Booting up!"

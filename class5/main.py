@@ -23,6 +23,8 @@ Example:
 
 ____x_____*__________FINISH
 
+x - natives
+* - you
 
 Hints:
 - You can print multiple times with the following command:
