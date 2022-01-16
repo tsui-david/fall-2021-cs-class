@@ -43,21 +43,6 @@ Draw 30 people each with +2 offset
 Hint: use a for loop
 """
 
-def draw_person(screen, x, y):
-    pygame.draw.ellipse(screen, BLACK, [1 + x, y, 10, 10], 0)
- 
-    # Legs
-    pygame.draw.line(screen, BLACK, [5 + x, 17 + y], [10 + x, 27 + y], 2)
-    pygame.draw.line(screen, BLACK, [5 + x, 17 + y], [x, 27 + y], 2)
- 
-    # Body
-    pygame.draw.line(screen, RED, [5 + x, 17 + y], [5 + x, 7 + y], 2)
- 
-    # Arms
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [9 + x, 17 + y], 2)
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)
-
-
 # ----------Update code here below here (Uncomment everything below this line using 'cmd+/' or 'ctrl+/')-----------
 # Define some colors
 BLACK = (0, 0, 0)
@@ -80,6 +65,12 @@ person_1_x = 10
 person_1_y = 10
 step_size = 10
 
+# Load your image in
+bg_image = pygame.image.load("assets/backgroundCastles.png")
+bg_image = pygame.transform.scale(bg_image, size)
+avatar = pygame.image.load("assets/character_robot_walk0.png")
+avatar = pygame.transform.scale(avatar, [80, 100])
+
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -94,8 +85,6 @@ while not done:
             elif event.key == pygame.K_DOWN:
                 person_1_y += step_size
 
-        screen.fill(WHITE)
-        # add your function here!
-        draw_person(screen, person_1_x, person_1_y)
-        # draw_person(screen, person_1_x+10, person_1_y+10)
+        screen.blit(bg_image, (0, 0))
+        screen.blit(avatar, (person_1_x, person_1_y))
         pygame.display.flip()
