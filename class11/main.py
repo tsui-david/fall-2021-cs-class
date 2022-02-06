@@ -9,6 +9,7 @@ Take your pick what you would like...
 Hint: what is the path to the image?
 """
 
+
 """
 Exercise 2:
 Draw the background image onto the whole screen.
@@ -42,6 +43,10 @@ Do we have variables to represent the coordinates?
 
 # ----------Update code here below here (Uncomment everything below this line using 'cmd+/' or 'ctrl+/')-----------
 # Define some colors
+character_image = pygame.image.load('assets/character_malePerson_walk0.png')
+background_image = pygame.image.load('assets/backgroundCastles.png')
+
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -52,6 +57,11 @@ pygame.init()
 # Set the width and height of the screen [width, height]
 size = [700, 500]
 screen = pygame.display.set_mode(size)
+
+new_scaled_background = pygame.transform.scale(background_image, (700, 500))
+pygame.Surface.blit(screen, new_scaled_background, (0, 0))
+
+
 pygame.display.set_caption("Cool Game")
 
 # Loop until the user clicks the close button.

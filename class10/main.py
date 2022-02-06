@@ -49,30 +49,31 @@ pygame.init()
 # Set the width and height of the screen [width, height]
 size = [700, 500]
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Stickfigure Game")
 
-# Loop until the user clicks the close button.
-done = False
+# pygame.display.set_caption("Stickfigure Game")
 
-# Current position
-person_1_x = 10
-person_1_y = 10
-step_size = 10
+# # Loop until the user clicks the close button.
+# done = False
 
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                person_1_x -= step_size
-            elif event.key == pygame.K_RIGHT:
-                person_1_x += step_size
-            elif event.key == pygame.K_UP:
-                person_1_y -= step_size
-            elif event.key == pygame.K_DOWN:
-                person_1_y += step_size
+# # Current position
+# person_1_x = 10
+# person_1_y = 10
+# step_size = 10
 
-        screen.fill(WHITE)
-        # add your function here!
-        pygame.display.flip()
+# while not done:
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             done = True
+#         elif event.type == pygame.KEYDOWN:
+#             if event.key == pygame.K_LEFT:
+#                 person_1_x -= step_size
+#             elif event.key == pygame.K_RIGHT:
+#                 person_1_x += step_size
+#             elif event.key == pygame.K_UP:
+#                 person_1_y -= step_size
+#             elif event.key == pygame.K_DOWN:
+#                 person_1_y += step_size
+
+#         screen.fill(WHITE)
+#         # add your function here!
+#         pygame.display.flip()

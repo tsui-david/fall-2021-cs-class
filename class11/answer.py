@@ -1,46 +1,43 @@
 import pygame
-"""
-Exercise 1.
-
-create a function called 'draw_person'
-Our game will use this function to draw a person.
-
-In order for us to draw, we will need to pass in an argument 'screen'
-which will represent the 
-
-To draw a person we will need:
-- ellipse as the head 
-- two lines as the legs
-- two lines as the arms
-- one line as the body
-"""
-
 
 """
-Exercise 2.
-Modify the same function.
-This time, we want the function to take in 'x' and 'y' position.
-Depending on the 'x' and 'y' argument, we want to change where the stickfigure is drawn.
+Exercise 1:
+Load in your images from the assets folder.
+We will need a background image and a character image.
+Take your pick what you would like...
+
+Hint: what is the path to the image?
 """
 
 """
-Exercise 3.
-Time to test it out in our game!
-Plug our function into the code and see if you can move your avatar with key presses
+Exercise 2:
+Draw the background image onto the whole screen.
 """
 
 """
-Exercise 4.
-We want to draw ANOTHER person (so 2 people in total now)
-This person will reuse the same function but its coordinates will be offset by +10 x and +10 y
-
-Create new coordinates: person_2_x and person_2_y to represent the new person's coordinates
+Exercise 3:
+Resize the image so that it fits into the screen.
+Hint: What is the screen's size? Do we have a variable to represent the screen size?
 """
 
 """
-Exercise 5.
-Draw 30 people each with +2 offset
-Hint: use a for loop
+Exercise 4:
+Draw a character image onto the screen.
+"""
+
+"""
+Exercise 5:
+Resize the character so that it is bigger.
+You might need to play around with the width and height.. 
+"""
+
+"""
+Exercise 6:
+This might be done by exercise 4 depending on your implementation. 
+But we now want to draw it to wherever the player moves it.
+
+Hint:
+Do we have variables to represent the coordinates?
 """
 
 # ----------Update code here below here (Uncomment everything below this line using 'cmd+/' or 'ctrl+/')-----------
@@ -64,6 +61,8 @@ done = False
 person_1_x = 10
 person_1_y = 10
 step_size = 10
+
+bg_image = pygame.image.load(assets/backgroundCastles.png)
 
 # Load your image in
 bg_image = pygame.image.load("assets/backgroundCastles.png")
