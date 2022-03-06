@@ -1,5 +1,13 @@
 {
   "files": {
+    ".replit": [
+      {
+        "id": "8d32dfcb-b42a-4aa2-a6f9-cc9542c3e5f5",
+        "line": 4,
+        "version": 145,
+        "index": 77
+      }
+    ],
     "class11/answer.py": [
       {
         "id": "7687582c-26cb-42f2-950b-0abc2f655501",
