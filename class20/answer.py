@@ -5,8 +5,61 @@ import pygame_menu
 
 from pygame.time import Clock
 
+"""
+Add a "high score" feature where:
+
+# 1. Let's break down the criterias:
+- when the game is running, display a seperate score to track the current high score
+
+  - we need a seperate variable to track the high score (line 138)
+  - let's call it raw_high_score
+  - we can reuse the logic for drawing the current score (line 201)
+    - convert high score from int to string
+    - convert from string to image
+    - blit image
+
+- we update the high score if the user's current score is higher than the high score
+
+  - we need to compare high score with current score
+  - if raw_high_score > raw_score: (line 197)
+        raw_high_score = raw_score
+
+- when the user dies, we display the game over menu with the high score
+    - we need to add some label to the menu class
+"""
+
+def restart():
+    # not really recommended
+    # we will discuss how to make this better next class
+
+    # global tells the python compiler that the variable is actually belonging to somewhere else
+    # modifying these variables here will modify the variables outside of the function
+    global menu
+    global trees
+    global user_died
+    global raw_score
+
+    """
+    It is usually better practice to pass the variable in as an argument 
+    and modify it that way.
+
+    However, for primitive values such as boolean and integers, we cannot update the
+    passed in value and still have the global variable become updated.
+
+    See https://realpython.com/python-pass-by-reference/
+    """
+
+    menu.set_onclose(pygame_menu.events.CLOSE)
+    menu.close()
+    trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
+    user_died = False
+    raw_score = 0
+
 def get_score_string_from_raw_score(raw_score):
     return "Score: "+str(math.floor(raw_score/10))
+
+def get_high_score_string_from_raw_score(raw_score):
+    return "High Score: "+str(math.floor(raw_score/10))
 
 def add_new_tree(trees):
     if trees[0][0] > 0:
@@ -81,31 +134,25 @@ trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
 
 # Time
 clock = Clock()
-user_died = False
+user_died = False 
 
 # Score
 raw_score = 0
+raw_high_score = 0
 
-def restart():
-    # Do the job here !
-    print("RESTARTING!")
-    menu.close()
 
 # Initialize a font
 score_font = pygame.font.SysFont("calibri", 30)
 
 # Initialize menu
-menu = pygame_menu.Menu('Game Over', 400, 300,
-                       theme=pygame_menu.themes.THEME_DARK, onclose=pygame_menu.events.CLOSE)
+menu = pygame_menu.Menu('Game Over', 400, 300, theme=pygame_menu.themes.THEME_DARK)
+high_score_label = menu.add.label("", max_char=-1, font_size=20)
 menu.add.button('Restart', restart)
-
-
 
 # game loops until done == False
 while not done:
     # syncs game with FPS
     clock.tick(MAX_FPS)
-
     # watch for spacebar press event or close game event
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -113,19 +160,14 @@ while not done:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and not has_jumped:
               has_jumped = True
-
     if user_died:
         # if user died, we don't move to code that updates
-        print("MENU STARTING!")
         menu.enable()
+        high_score_str = get_high_score_string_from_raw_score(raw_high_score)
+        high_score_label.set_title(high_score_str)
         menu.mainloop(screen)
-        print("MENU ENDING!")
-        raw_score = 0
-        trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
-        user_died = False
-        cur_player_y = PLAYER_STARTING_Y
-        continue
 
+        continue
     # user has not died yet, we keep going!
 
     if has_jumped:
@@ -159,9 +201,15 @@ while not done:
     add_new_tree(trees)
   
     raw_score += 1
+    raw_high_score = max(raw_score, raw_high_score)
+
     score_str = get_score_string_from_raw_score(raw_score)
-    score_img = score_font.render(score_str, True, RED)
-    screen.blit(score_img, (20, 20))
+    score_img = score_font.render(score_str, True, BLACK)
+    screen.blit(score_img, (20, 40))
+
+    high_score_str = get_high_score_string_from_raw_score(raw_high_score)
+    high_score_img = score_font.render(high_score_str, True, RED)
+    screen.blit(high_score_img, (20, 10))
  
     pygame.draw.rect(screen, GREEN, (0, 400, 700, 500))
     pygame.display.update()

@@ -5,6 +5,40 @@ import pygame_menu
 
 from pygame.time import Clock
 
+"""
+Add a "high score" feature where:
+- when the game is running, display a seperate score to track the current high score
+- we update the high score if the user's current score is higher than the high score
+- when the user dies, we display the game over menu with the high score
+"""
+
+def restart():
+    # not really recommended
+    # we will discuss how to make this better next class
+
+    # global tells the python compiler that the variable is actually belonging to somewhere else
+    # modifying these variables here will modify the variables outside of the function
+    global menu
+    global trees
+    global user_died
+    global raw_score
+
+    """
+    It is usually better practice to pass the variable in as an argument 
+    and modify it that way.
+
+    However, for primitive values such as boolean and integers, we cannot update the
+    passed in value and still have the global variable become updated.
+
+    See https://realpython.com/python-pass-by-reference/
+    """
+
+    menu.set_onclose(pygame_menu.events.CLOSE)
+    menu.close()
+    trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
+    user_died = False
+    raw_score = 0
+
 def get_score_string_from_raw_score(raw_score):
     return "Score: "+str(math.floor(raw_score/10))
 
@@ -81,31 +115,24 @@ trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
 
 # Time
 clock = Clock()
-user_died = False
+user_died = False 
 
 # Score
 raw_score = 0
 
-def restart():
-    # Do the job here !
-    print("RESTARTING!")
-    menu.close()
+
 
 # Initialize a font
 score_font = pygame.font.SysFont("calibri", 30)
 
 # Initialize menu
-menu = pygame_menu.Menu('Game Over', 400, 300,
-                       theme=pygame_menu.themes.THEME_DARK, onclose=pygame_menu.events.CLOSE)
+menu = pygame_menu.Menu('Game Over', 400, 300, theme=pygame_menu.themes.THEME_DARK)
 menu.add.button('Restart', restart)
-
-
 
 # game loops until done == False
 while not done:
     # syncs game with FPS
     clock.tick(MAX_FPS)
-
     # watch for spacebar press event or close game event
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -113,19 +140,11 @@ while not done:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and not has_jumped:
               has_jumped = True
-
     if user_died:
         # if user died, we don't move to code that updates
-        print("MENU STARTING!")
         menu.enable()
         menu.mainloop(screen)
-        print("MENU ENDING!")
-        raw_score = 0
-        trees = [[450, 350], [750, 350], [1100, 350], [2000, 350]]
-        user_died = False
-        cur_player_y = PLAYER_STARTING_Y
         continue
-
     # user has not died yet, we keep going!
 
     if has_jumped:
