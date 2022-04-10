@@ -25,7 +25,11 @@ Add a "high score" feature where:
         raw_high_score = raw_score
 
 - when the user dies, we display the game over menu with the high score
-    - we need to add some label to the menu class
+    - we need to add some label to the menu class (line 170)
+
+    https://pygame-menu.readthedocs.io/en/4.2.7/_source/widgets_label.html
+    - use menu.add.label()
+    - label.set_title(title)
 """
 
 def restart():
